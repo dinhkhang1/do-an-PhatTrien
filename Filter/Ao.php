@@ -20,7 +20,7 @@ if ($cus_name != "") {
 try {
     // Create a new PDO instance
 
-    
+
     $stmt = $conn->prepare("SELECT * FROM product WHERE product_tag LIKE '%Ao%'");
     $stmt->execute();
     $result_filter = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -44,12 +44,12 @@ try {
 <body>
     <div class="side-bar">
         <i class="fa-solid fa-x" onClick="onClickSideBar()" style="color: white;"></i>
-            <ul>
-                <li><a href="../Views/Home.php" style="color: white;">Home</a></li>
-                <li><a href="../Views/Shop.php" style="color: white;">Shop</a></li>
-                <li><a href="../Views/Aboutus.php" style="color: white;">About us</a></li>
-                <li><a href="../Views/Contact.php" style="color: white;">Contact us</a></li>
-            </ul>
+        <ul>
+            <li><a href="../Index.php" style="color: white;">Home</a></li>
+            <li><a href="../Views/Shop.php" style="color: white;">Shop</a></li>
+            <li><a href="../Views/Aboutus.php" style="color: white;">About us</a></li>
+            <li><a href="../Views/Contact.php" style="color: white;">Contact us</a></li>
+        </ul>
     </div>
     <div class="overlay"></div>
     <div class="nav-side">
@@ -63,18 +63,18 @@ try {
 
                 if (isset($_POST["search_item"]) && !empty($_POST['search'])) {
                     $search =  $_POST['search'];
-                    $sql_search = "SELECT * from product where product_name like :search";
+                    $sql_search = "SELECT * from product where product_tag like :search";
                     $stmt = $conn->prepare($sql_search);
                     $stmt->execute(['search' => "%$search%"]);
                     $result_search = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     if ($result_search && count($result_search) > 0) {
-                        if ($search == 'Ao') header("Location: ../Filter/Ao.php");
-                        else if ($search == 'Quan') header("Location: ../Filter/Quan.php");
-                        else if ($search == 'Aounisex') header("Location: ../Filter/AoUnisex.php");
-                        else if ($search == 'Quanunisex') header("Location: ../Filter/QuanUnisex.php");
+                        if ($search == 'Ao') header("Location: ./Ao.php");
+                        else if ($search == 'Quan') header("Location: ./Quan.php");
+                        else if ($search == 'Aounisex') header("Location: ./AoUnisex.php");
+                        else if ($search == 'Quanunisex') header("Location: ./QuanUnisex.php");
                     } else {
-                        header("Location: ../Filter/NotFound.php");
+                        header("Location: ./NotFound.php");
                     }
                 }
 
@@ -87,7 +87,7 @@ try {
                 ?>
 
             </div>
-            <img src="../assets/Uad.png" alt="" width="190px" class="logo">
+            <a href="../Index.php"><img src="../assets/Uad.png" alt="" width="190px" class="logo"></a>
             <div class="nav-user">
                 <?php
                 if ($cus_name != "") {
@@ -107,16 +107,16 @@ try {
             <p>Filter Products</p>
             <!-- Update your filter links with PHP -->
             <a href="../Filter/Ao.php" class="filter-page">
-                <div><i class="fa-solid fa-square-check"></i> Áo</div>
+                <div><i class="fa-solid fa-asterisk"></i> Áo</div>
             </a>
             <a href="../Filter/Quan.php" class="filter-page">
-                <div><i class="fa-solid fa-square-check"></i> Quần</div>
+                <div><i class="fa-solid fa-asterisk"></i> Quần</div>
             </a>
             <a href="../Filter/AoUnisex.php" class="filter-page">
-                <div><i class="fa-solid fa-square-check"></i> Áo unisex</div>
+                <div><i class="fa-solid fa-asterisk"></i> Áo unisex</div>
             </a>
             <a href="../Filter/QuanUnisex.php" class="filter-page">
-                <div><i class="fa-solid fa-square-check"></i> Quần unisex</div>
+                <div><i class="fa-solid fa-asterisk"></i> Quần unisex</div>
             </a>
         </div>
         <div class="products-side">
@@ -131,7 +131,7 @@ try {
                                 <?php echo $rows["product_name"] ?>
                             </div>
                             <div class="item_price" style="font-weight: bold; position: relative; top: 15px; color: black">
-                                <?php echo "$" . " " .  $rows["item_price"] ?>
+                                <?php echo number_format($rows["item_price"], 0, ',', '.') ?> VNĐ
                             </div>
                         </div>
                     </a>
@@ -142,7 +142,7 @@ try {
         </div>
     </section>
 
-    <section class="section-sh" style="color: white;">
+    <section class="section-5" style="color: white;">
         <div>
             <h3>De'Shop</h3>
             <p>Text: +00(234)23-45-666</p>
