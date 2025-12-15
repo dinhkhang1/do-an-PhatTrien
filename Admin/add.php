@@ -11,43 +11,51 @@
     <div class="overlay">
         <i class="fa-solid fa-x" onCLick="closeX()"></i>
     </div>
+    <button class="add"><a href="../Admin/adminPage.php">Quay về</a></button>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="form">
+        <h2>Thêm sản phẩm mới</h2>
 
-    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="form">
+        <?php
+        // Hiển thị lỗi duplicate ID đẹp hơn
+        if (isset($e) && $e->errorInfo[1] == 1062) {
+            echo '<p class="error">Lỗi: ID sản phẩm đã tồn tại! Vui lòng chọn ID khác.</p>';
+        }
+        ?>
 
         <div>
-            <label for="">ID</label>
-            <input type="text" name="product_id" id="">
+            <label for="product_id">ID sản phẩm *</label>
+            <input type="text" name="product_id" required placeholder="Ví dụ: SP001">
         </div>
         <div>
-            <label for="">name</label>
-            <input type="text" name="product_name" id="">
+            <label for="product_name">Tên sản phẩm *</label>
+            <input type="text" name="product_name" required placeholder="Áo thun cotton basic">
         </div>
         <div>
-            <label for="">quantity</label>
-            <input type="text" name="quantity" id="">
+            <label for="quantity">Số lượng *</label>
+            <input type="text" name="quantity" required placeholder="100">
         </div>
         <div>
-            <label for="">decription</label>
-            <input type="text" name="decription" id="">
+            <label for="decription">Mô tả</label>
+            <input type="text" name="decription" placeholder="Mô tả ngắn về sản phẩm...">
         </div>
         <div>
-            <label for="">price</label>
-            <input type="text" name="item_price" id="">
+            <label for="item_price">Giá (VNĐ) *</label>
+            <input type="text" name="item_price" required placeholder="250000">
         </div>
         <div>
-            <label for="">image</label>
-            <input type="text" name="image" id="">
+            <label for="image">Link hình ảnh *</label>
+            <input type="text" name="image" required placeholder="https://example.com/image.jpg">
         </div>
         <div>
-            <label for="">category_ID</label>
-            <input type="text" name="category_id" id="">
+            <label for="category_id">Mã danh mục *</label>
+            <input type="text" name="category_id" required placeholder="1 (Áo), 2 (Quần), ...">
         </div>
         <div>
-            <label for="">Tag</label>
-            <input type="text" name="product_tag" id="">
+            <label for="product_tag">Tag</label>
+            <input type="text" name="product_tag" placeholder="new, sale, hot">
         </div>
-        <button>Save</button>
 
+        <button type="submit">Lưu sản phẩm</button>
     </form>
     <?php
     include("../Database/database.php");
