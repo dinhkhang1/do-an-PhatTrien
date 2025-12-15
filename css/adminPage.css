@@ -1,0 +1,147 @@
+/* Reset cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Tiêu đề trang */
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin: 30px 0;
+    font-size: 36px;
+    font-weight: 600;
+}
+
+/* Các nút điều hướng */
+button, .add, .update, .delete {
+    padding: 12px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button {
+    background: #3498db;
+    color: white;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+/* Nút thêm sản phẩm */
+.add {
+    background: #27ae60;
+    color: white;
+    padding: 14px 28px;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.add:hover {
+    background: #219a52;
+}
+
+.add a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Bảng sản phẩm */
+table {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th {
+    background: #34495e;
+    color: white;
+    padding: 18px 15px;
+    text-align: center;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Cột hình ảnh */
+.img {
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.img:hover {
+    transform: scale(1.05);
+}
+
+/* Nút Update và Delete trong bảng */
+.update {
+    background: #f39c12;
+    color: white;
+    padding: 8px 16px;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.update:hover {
+    background: #e67e22;
+}
+
+.update a {
+    color: white;
+    text-decoration: none;
+}
+
+.delete {
+    background: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.delete:hover {
+    background: #c0392b;
+}
+
+/* Form delete nhỏ */
+form {
+    display: inline;
+}
+
