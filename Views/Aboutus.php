@@ -35,7 +35,7 @@ if ($cus_name != "") {
     <div class="side-bar">
         <i class="fa-solid fa-x" onClick="onClickSideBar()" style="color: white;"></i>
         <ul>
-            <li><a href="../Views/Home.php" style="color: white;">Home</a></li>
+            <li><a href="../Index.php" style="color: white;">Home</a></li>
             <li><a href="../Views/Shop.php" style="color: white;">Shop</a></li>
             <li><a href="../Views/Aboutus.php" style="color: white;">About us</a></li>
             <li><a href="../Views/Contact.php" style="color: white;">Contact us</a></li>
@@ -53,18 +53,18 @@ if ($cus_name != "") {
 
                     if (isset($_POST["search_item"]) && !empty($_POST['search'])) {
                         $search =  $_POST['search'];
-                        $sql_search = "SELECT * from product where product_name like :search";
+                        $sql_search = "SELECT * from product where product_tag like :search";
                         $stmt = $conn->prepare($sql_search);
                         $stmt->execute(['search' => "%$search%"]);
                         $result_search = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         if ($result_search && count($result_search) > 0) {
-                            if ($search == 'Ao') header("Location: ../Filter/Ao.php");
-                            else if ($search == 'Quan') header("Location: ../Filter/Quan.php");
-                            else if ($search == 'Aounisex') header("Location: ../Filter/AoUnisex.php");
-                            else if ($search == 'Quanunisex') header("Location: ../Filter/QuanUnisex.php");
+                            if ($search == 'Ao') header("Location: ./Filter/Ao.php");
+                            else if ($search == 'Quan') header("Location: ./Filter/Quan.php");
+                            else if ($search == 'Aounisex') header("Location: ./Filter/AoUnisex.php");
+                            else if ($search == 'Quanunisex') header("Location: ./Filter/QuanUnisex.php");
                         } else {
-                            header("Location: ../Filter/NotFound.php");
+                            header("Location: ./Filter/NotFound.php");
                         }
                     }
 
@@ -76,7 +76,7 @@ if ($cus_name != "") {
 
                     ?>
                 </div>
-                <img src="../assets/Uad.png" alt="" width="190px" class="logo">
+                <a href="../Index.php"><img src="../assets/Uad.png" alt="" width="190px" class="logo"></a>s
                 <div class="nav-user">
                     <?php
                     if ($cus_name != "") {
@@ -87,8 +87,23 @@ if ($cus_name != "") {
                     <a href="../Views/Cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
                 </div>
             </div>
+
         </div>
-      <!-- body -->
+        <div class="about-us">
+            <div class="about-us-header">
+                <h2>Giới thiệu về chúng mình</h2>
+                <p>Chào mừng bạn đến với De'Shop – cửa hàng thời trang trực tuyến nhỏ được xây dựng bởi một nhóm sinh viên đam mê lập trình và yêu thích thời trang.</p>
+                <p>De'Shop ra đời vào năm 2025 như một dự án học tập môn lập trình web. Ban đầu chỉ là ý tưởng đơn giản, nhưng nhờ sự nhiệt huyết và nỗ lực học hỏi, chúng mình đã biến nó thành một website hoàn chỉnh để bán các sản phẩm thời trang cơ bản.</p>
+                <p>Mục tiêu của chúng mình là mang đến những sản phẩm chất lượng ở mức giá hợp lý, đồng thời rèn luyện kỹ năng lập trình và hiểu thêm về cách vận hành một cửa hàng trực tuyến. Hiện tại shop chủ yếu phục vụ khách hàng ở Việt Nam.</p>
+                <p>Chúng mình rất mong bạn sẽ thích các sản phẩm trên De'Shop. Nếu có bất kỳ câu hỏi, góp ý hay phản hồi nào, đừng ngần ngại liên hệ nhé – mọi ý kiến của bạn đều giúp tụi mình cải thiện rất nhiều!</p>
+                <p>Trân trọng,</p>
+                <p>Nhóm sinh viên thực hiện De'Shop</p>
+            </div>
+            <div class="about-us-image">
+                <img src="../assets/Project.jpg" alt="About Us Image" width="600px">
+            </div>
+            <!-- body -->
+    </section>
     <section class="section-5" style="color: white;">
         <div>
             <h3>De'Shop</h3>

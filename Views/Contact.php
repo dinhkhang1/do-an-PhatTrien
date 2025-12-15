@@ -53,18 +53,18 @@ if ($cus_name != "") {
 
                     if (isset($_POST["search_item"]) && !empty($_POST['search'])) {
                         $search =  $_POST['search'];
-                        $sql_search = "SELECT * from product where product_name like :search";
+                        $sql_search = "SELECT * from product where product_tag like :search";
                         $stmt = $conn->prepare($sql_search);
                         $stmt->execute(['search' => "%$search%"]);
                         $result_search = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         if ($result_search && count($result_search) > 0) {
-                            if ($search == 'Ao') header("Location: ../Filter/Ao.php");
-                            else if ($search == 'Quan') header("Location: ../Filter/Quan.php");
-                            else if ($search == 'Aounisex') header("Location: ../Filter/AoUnisex.php");
-                            else if ($search == 'Quanunisex') header("Location: ../Filter/QuanUnisex.php");
+                            if ($search == 'Ao') header("Location: ./Filter/Ao.php");
+                            else if ($search == 'Quan') header("Location: ./Filter/Quan.php");
+                            else if ($search == 'Aounisex') header("Location: ./Filter/AoUnisex.php");
+                            else if ($search == 'Quanunisex') header("Location: ./Filter/QuanUnisex.php");
                         } else {
-                            header("Location: ../Filter/NotFound.php");
+                            header("Location: ./Filter/NotFound.php");
                         }
                     }
 
@@ -76,7 +76,7 @@ if ($cus_name != "") {
 
                     ?>
                 </div>
-                <img src="../assets/Uad.png" alt="" width="190px" class="logo">
+                <a href="../Index.php"><img src="../assets/Uad.png" alt="" width="190px" class="logo"></a>
                 <div class="nav-user">
                     <?php
                     if ($cus_name != "") {
@@ -88,7 +88,29 @@ if ($cus_name != "") {
                 </div>
             </div>
         </div>
-      <!-- body -->
+        <div class="contact-us">
+            <h2>Liên hệ với chúng mình</h2>
+
+            <p>Cảm ơn bạn đã ghé thăm De'Shop! Đây là dự án nhỏ do nhóm sinh viên thực hiện, nên nếu bạn có bất kỳ câu hỏi, góp ý, báo lỗi website hay chỉ đơn giản là muốn trò chuyện về thời trang, tụi mình đều rất vui được nghe từ bạn.</p>
+
+            <p><strong>Các cách liên hệ nhanh nhất:</strong></p>
+
+            <p><strong>Email:</strong> deshop.student@gmail.com<br>
+                <strong>Zalo:</strong> 0123 456 789 (ID: De'Shop)<br>
+                <strong>Facebook:</strong> <a href="https://facebook.com/deshop.student" target="_blank">facebook.com/deshop.student</a><br>
+                <strong>Instagram:</strong> <a href="https://instagram.com/deshop.student" target="_blank">@deshop.student</a>
+            </p>
+
+            <p>Thời gian phản hồi: tụi mình thường trả lời trong vòng 24–48 giờ (trừ cuối tuần có thể chậm hơn một chút vì còn bận học).</p>
+
+            <p>Nếu bạn phát hiện lỗi trên website (ví dụ nút bấm không chạy, hình ảnh không tải, hay có ý tưởng cải thiện giao diện), hãy báo cho tụi mình nhé – đó là cách giúp dự án hoàn thiện hơn rất nhiều!</p>
+
+            <p>Một lần nữa cảm ơn bạn đã ủng hộ dự án nhỏ của sinh viên chúng mình ♡</p>
+
+            <p>Trân trọng,<br>
+                Nhóm sinh viên thực hiện De'Shop</p>
+        </div>
+    </section>
     <section class="section-5" style="color: white;">
         <div>
             <h3>De'Shop</h3>
@@ -116,6 +138,7 @@ if ($cus_name != "") {
             <p>Quan 8 - TP. HCM</p>
         </div>
     </section>
+    <!-- body -->
 </body>
 
 </html>
