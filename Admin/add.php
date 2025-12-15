@@ -12,7 +12,7 @@
         <i class="fa-solid fa-x" onCLick="closeX()"></i>
     </div>
     <button class="add"><a href="../Admin/adminPage.php">Quay về</a></button>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="form">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="forrm">
         <h2>Thêm sản phẩm mới</h2>
 
         <?php

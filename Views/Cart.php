@@ -142,7 +142,7 @@ if ($cus_name != "") {
                     <?php
                     if ($cus_name != "") {
                     } else {
-                        echo "<a href=\"./Authen/login.php\"><i class=\"fa-regular fa-user\"></i></a>";
+                        echo "<a href=\"../Authen/login.php\"><i class=\"fa-regular fa-user\"></i></a>";
                     }
                     ?>
                     <a href="./Views/Cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
