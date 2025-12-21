@@ -163,10 +163,10 @@ if ($cus_name != "") {
                 <h2 style='text-align:center;padding:40px;'>Giỏ hàng của bạn</h2>
 
                 <?php
-                // BUG CỐ TÌNH: Tính tổng tiền luôn dùng quantity = 1 dù người dùng thay đổi bao nhiêu
+              
                 $total = 0;
                 foreach ($items as $item) {
-                    // Force sai: nhân với 1 thay vì $item["quantity"]
+                   
                     $sub = $item["item_price"] * 1;
                     $total += $sub;
                 ?>
@@ -180,7 +180,7 @@ if ($cus_name != "") {
 
                         <form method="post" class="quantity-form">
                             <input type="number" name="update[<?php echo $item['product_id']; ?>]"
-                                value="<?php echo $item['quantity']; ?>" min="1"> <!-- Quantity hiển thị đúng -->
+                                value="<?php echo $item['quantity']; ?>" min="1"> 
                             <button type="submit" name="update_button">Cập nhật</button>
                         </form>
 
@@ -189,7 +189,7 @@ if ($cus_name != "") {
                             <button type="submit" name="delete_button" class="remove-btn">Xóa</button>
                         </form>
 
-                        <!-- Subtotal sai cố tình -->
+              
                         <div class="subtotal">
                             Tổng: <?php echo number_format($item["item_price"] * 1); ?> VNĐ
                         </div>
@@ -197,7 +197,7 @@ if ($cus_name != "") {
                 <?php } ?>
 
                 <div class="cart-total">
-                    <h3>Tổng cộng: <?php echo number_format($total); ?> VNĐ</h3> <!-- Luôn sai -->
+                    <h3>Tổng cộng: <?php echo number_format($total); ?> VNĐ</h3> 
                     <a href="../Filter/Hoadon.php" class="checkout-button">Thanh toán</a>
                 </div>
             </div>
