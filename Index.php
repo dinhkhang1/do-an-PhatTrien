@@ -20,7 +20,6 @@ if ($cus_name != "") {
 }
 ?>
 
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -28,8 +27,8 @@ if ($cus_name != "") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/home.css?v=">
     <script src="https://unpkg.com/scrollreveal"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <title>De'Shop - Trang chủ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
 </head>
 
 <body>
@@ -43,7 +42,6 @@ if ($cus_name != "") {
         </ul>
     </div>
     <div class="overlay"></div>
-
     <section class="section-1">
         <div class="nav-side">
             <div class="nav-bar">
@@ -51,61 +49,82 @@ if ($cus_name != "") {
                     <i class="fa-solid fa-bars" onClick="menu()"></i>
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <?php
-                    if (isset($_POST["search_item"]) && !empty($_POST['search'])) {
-                        $search = trim($_POST['search']); 
+                    include("./Database/database.php");
 
-                      
-                        if ($search == 'Ao') {
-                            header("Location: ./Filter/Ao.php");
-                            exit();
-                        } else if ($search == 'Quan') {
-                            header("Location: ./Filter/Quan.php");
-                            exit();
-                        } else if ($search == 'Aounisex') {
-                            header("Location: ./Filter/AoUnisex.php");
-                            exit();
-                        } else if ($search == 'Quanunisex') {
-                            header("Location: ./Filter/QuanUnisex.php");
-                            exit();
+                    if (isset($_POST["search_item"]) && !empty($_POST['search'])) {
+                        $search =  $_POST['search'];
+                        $sql_search = "SELECT * from product where product_tag like :search";
+                        $stmt = $conn->prepare($sql_search);
+                        $stmt->execute(['search' => "%$search%"]);
+                        $result_search = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        if ($result_search && count($result_search) > 0) {
+                            if ($search == 'Ao') header("Location: ./Filter/Ao.php");
+                            else if ($search == 'Quan') header("Location: ./Filter/Quan.php");
+                            else if ($search == 'Aounisex') header("Location: ./Filter/AoUnisex.php");
+                            else if ($search == 'Quanunisex') header("Location: ./Filter/QuanUnisex.php");
                         } else {
-                      
                             header("Location: ./Filter/NotFound.php");
-                            exit();
                         }
                     }
 
                     echo "
                     <form action='' method='post' class='seacrh-form'>
-                        <input type='text' name='search' placeholder='Tìm kiếm sản phẩm...'>
+                        <input type='text' name='search' id=''>
                         <button type='submit' name='search_item' class='search'>Search</button>
                     </form>";
+
                     ?>
                 </div>
-                <a href="./Index.php"><img src="./assets/Uad.png" alt="Logo De'Shop" width="190px" class="logo"></a>
+                <a href="./Index.php"><img src="./assets/Uad.png" alt="" width="190px" class="logo"></a>
                 <div class="nav-user">
-                    <?php if ($cus_name == "") echo "<a href=\"./Authen/login.php\"><i class=\"fa-regular fa-user\"></i></a>"; ?>
+                    <?php
+                    if ($cus_name != "") {
+                    } else {
+                        echo "   <a href=\"./Authen/login.php\"><i class=\"fa-regular fa-user\"></i></a>";
+                    }
+                    ?>
                     <a href="./Views/Cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <!-- <a href="./Views/HH.php"><i class="fa-solid fa-calendar-check"></i></a> -->
                 </div>
             </div>
         </div>
-
-        <!-- Phần nội dung trang chủ giữ nguyên -->
         <div class="home-content">
             <div class="content-text">
                 <h4>HÀNG MỚI </h4>
-                <h3>CÓ THỂ BẠN THÍCH</h3>
+                <h3>
+                    CÓ THỂ BẠN THÍCH
+                </h3>
                 <span>GIAO HÀNG MIỄN PHÍ VỚI 50.000 VNĐ</span>
                 <a>MUA NGAY</a>
             </div>
             <div class="content-image"></div>
         </div>
+
     </section>
-
-
     <section class="section-2">
-   
+        <div class="sale-info__side">
+            <div class="sale-info__side-1">
+                <div class=sale-1>
+                    <p>Giảm tới 40%</p>
+                    <span>Giảm giá mùa hè</span><br>
+                    <a href="">MUA NGAY</a>
+                </div>
+                <div class="sale-2" style="color: white;">
+                    <p>SẢN PHẨM MỚI</p>
+                    <span>Giảm tới 25%</span><br>
+                    <a href="" style="color: white;">MUA NGAY</a>
+                </div>
+            </div>
+            <div class="sale-info__side-2">
+                <div class="side-2__text">
+                    <p class="bigsale">ĐẠI TIỆC GIẢM GIÁ</p><br>
+                    <span>Giảm tới 70%</span><br>
+                    <a href="">MUA NGAY</a>
+                </div>
+            </div>
+        </div>
     </section>
-
     <div class="banner" style="text-align: center; color: white;">
         <p>10%</p>
         <div>
@@ -113,24 +132,25 @@ if ($cus_name != "") {
             <span>Đơn hàng trên 100.000.000 + mã giảm giá: <b>FANMU01</b></span>
         </div>
     </div>
-
     <section class="section-3">
         <div class="section-3_container">
             <?php
-            $sql = "SELECT * FROM product";
+            // list all products from the product table
+            $sql = "SELECT * from product";
             $stmt = $conn->query($sql);
+
             if ($stmt) {
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($result as $rows) {
             ?>
                     <a href="./Views/Product.php?id=<?php echo $rows["product_id"] ?>">
                         <div class="product">
-                            <img src="<?php echo htmlspecialchars($rows["image"]); ?>" alt="<?php echo htmlspecialchars($rows["product_name"]); ?>" class="img" width="280px" height="400px">
+                            <img src="<?php echo $rows["image"] ?>" alt="" class="img" width="280px" height="400px">
                             <div class="item_name" style="font-size: 20px; position: relative; top: 10px; color:black">
-                                <?php echo htmlspecialchars($rows["product_name"]); ?>
+                                <?php echo $rows["product_name"] ?>
                             </div>
                             <div class="item_price" style="font-weight: bold; position: relative; top: 15px; color:black">
-                                <?php echo number_format($rows["item_price"], 0, ',', '.'); ?> VNĐ
+                                <?php echo number_format($rows["item_price"], 0, ',', '.') ?> VNĐ
                             </div>
                         </div>
                     </a>
@@ -140,20 +160,43 @@ if ($cus_name != "") {
             ?>
         </div>
     </section>
-
     <section class="section-4">
         <video autoplay loop muted>
             <source type="video/mp4" src="./assets/hehe.mp4">
         </video>
     </section>
-
     <section class="section-5" style="color: white;">
-        <!-- Footer giữ nguyên -->
+        <div>
+            <h3>De'Shop</h3>
+            <p>Text: +00(234)23-45-666</p>
+            <p>Mon – Fri: 8 am – 8 pm</p>
+            <p>Sat – Sun: 8 am – 7 pm</p>
+        </div>
+        <div>
+            <h3>ABOUT</h3>
+            <p>Our Story</p>
+            <p>Careers</p>
+            <p>Influencers</p>
+            <p>Join our team</p>
+        </div>
+        <div>
+            <h3>CUSTOMER SERVICES</h3>
+            <p>Contact Us</p>
+            <p>Customer Service</p>
+            <p>Find Store</p>
+            <p>Shipping & Returns</p>
+        </div>
+        <div>
+            <h3>Address</h3>
+            <p>180 - Cao Lo</p>
+            <p>Quan 8 - TP. HCM</p>
+        </div>
     </section>
 </body>
 
+</html>
+
 <script>
-    // Script ScrollReveal và menu giữ nguyên
     var slideUp = {
         distance: '150%',
         origin: 'bottom',
@@ -168,8 +211,18 @@ if ($cus_name != "") {
     };
     ScrollReveal().reveal('.content-text', slideUp);
     ScrollReveal().reveal('.content-image', slideRight);
-    // ... các ScrollReveal khác ...
+    ScrollReveal().reveal('.section-2');
+    ScrollReveal().reveal('.sale-info__side-1', {
+        delay: 500
+    });
+    ScrollReveal().reveal('.sale-info__side-2', {
+        delay: 1000
+    });
+    ScrollReveal().reveal('.banner', {
+        delay: 500
+    });
 
+    //menu
     const sideBar = document.getElementsByClassName("side-bar")[0];
     const overlay = document.getElementsByClassName("overlay")[0];
     const navSide = document.getElementsByClassName("nav-side")[0];
@@ -188,7 +241,6 @@ if ($cus_name != "") {
         navSide.style.display = "none";
     };
 </script>
-
-</html>
-
-<?php $conn = null; ?>
+<?php
+$conn = null; // Close the conn connection
+?>
