@@ -2,11 +2,6 @@
 session_start();
 include("../Database/database.php");
 
-// Kiểm tra user đã đăng nhập
-// if (!isset($_SESSION["user_id"])) {
-//     echo "Bạn cần đăng nhập trước.";
-//     exit();
-// }
 $user_id = null;
 $is_logged_in = false;
 if (isset($_SESSION["user_id"])) {
@@ -14,8 +9,8 @@ if (isset($_SESSION["user_id"])) {
     $is_logged_in = true;
 }
 
-
 $cus_name = $_SESSION['cus_name'] ?? "";
+
 // Lấy product_id từ URL
 if (!isset($_GET["id"])) {
     echo "Không tìm thấy sản phẩm.";
@@ -37,27 +32,21 @@ if (!$row) {
 }
 
 $product_name = $row["product_name"];
-$quantity = $row["quantity"];  // Số lượng trong kho
+$quantity = $row["quantity"];
 $item_price = $row["item_price"];
-$image = $row["image"];
+$image = $row["image"];  //hh
 $product_tag = $row["product_tag"];
+$description = $row["decription"] ?? "Không có mô tả.";
 
-
-if (isset($_SESSION['cus_name']) && $_SESSION['cus_name'] != "") {
-    $cus_name = $_SESSION["cus_name"];
-}
-
-if (isset($_SESSION['password']) && $_SESSION['password'] != "") {
-    $password = $_SESSION["password"];
-}
 if ($cus_name != "") {
     echo "<div class='user-bar'> WELCOME TO DE'SHOP
-    " . "  " .  $cus_name . " " . "<a href='../Authen/logout.php' style='text-decoration: none; color: #fff;' ; >Log out</a></div>";
+    " . "  " .  $cus_name . " " . "<a href='../Authen/logout.php' style='text-decoration: none; color: #fff;'>Log out</a></div>";
 } else {
-    echo "<div class='user-bar'style='text-decoration: none;color: white;'>WELCOME TO DE'SHOP</div>";
+    echo "<div class='user-bar' style='text-decoration: none;color: white;'>WELCOME TO DE'SHOP</div>";
 }
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -65,7 +54,7 @@ if ($cus_name != "") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/product.css?v=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <title><?php echo $product_name; ?></title>
+    <title><?php echo htmlspecialchars($product_name); ?></title>
 </head>
 
 <body>
@@ -79,6 +68,7 @@ if ($cus_name != "") {
         </ul>
     </div>
     <div class="overlay"></div>
+
     <section class="section-1">
         <div class="nav-side">
             <div class="nav-bar">
@@ -86,65 +76,64 @@ if ($cus_name != "") {
                     <i class="fa-solid fa-bars" onClick="menu()"></i>
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <?php
-                    // Lỗi: include database 2 lần, chỉ cần 1 lần ở đầu file là đủ.
-                    // include("../Database/database.php"); // Đã loại bỏ include thứ 2
-
                     if (isset($_POST["search_item"]) && !empty($_POST['search'])) {
-                        $search =  $_POST['search'];
-                        $sql_search = "SELECT * from product where product_tag like :search";
+                        $search = $_POST['search'];
+                        $sql_search = "SELECT * FROM product WHERE product_tag LIKE :search";
                         $stmt = $conn->prepare($sql_search);
                         $stmt->execute(['search' => "%$search%"]);
                         $result_search = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         if ($result_search && count($result_search) > 0) {
-                            if ($search == 'Ao') header("Location: ./Filter/Ao.php");
-                            else if ($search == 'Quan') header("Location: ./Filter/Quan.php");
-                            else if ($search == 'Aounisex') header("Location: ./Filter/AoUnisex.php");
-                            else if ($search == 'Quanunisex') header("Location: ./Filter/QuanUnisex.php");
+                            if (strtolower($search) == 'ao') header("Location: ./Filter/Ao.php");
+                            elseif (strtolower($search) == 'quan') header("Location: ./Filter/Quan.php");
+                            elseif (strtolower($search) == 'aounisex') header("Location: ./Filter/AoUnisex.php");
+                            elseif (strtolower($search) == 'quanunisex') header("Location: ./Filter/QuanUnisex.php");
+                            else header("Location: ../Views/Shop.php");
                         } else {
                             header("Location: ./Filter/NotFound.php");
                         }
+                        exit();
                     }
 
                     echo "
                     <form action='' method='post' class='seacrh-form'>
-                        <input type='text' name='search' id=''>
+                        <input type='text' name='search' placeholder='Tìm kiếm...'>
                         <button type='submit' name='search_item' class='search'>Search</button>
                     </form>";
                     ?>
                 </div>
-                <a href="../Index.php"><img src="../assets/Uad.png" alt="" width="190px" class="logo"></a>
+                <a href="../Index.php"><img src="../assets/Uad.png" alt="Logo De'Shop" width="190px" class="logo"></a>
                 <div class="nav-user">
                     <?php
-                    if ($cus_name != "") {
-                    } else {
+                    if ($cus_name == "") {
                         echo "<a href=\"../Authen/login.php\"><i class=\"fa-regular fa-user\"></i></a>";
                     }
                     ?>
-                    <a href="../Views/Cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href="../Views/Cart.php"><i class=\"fa-solid fa-cart-shopping\"></i></a>
                 </div>
             </div>
         </div>
-        <div class="product-container">
-            <?php
 
-            if (!$is_logged_in) {
-                $display_message = "<div class='cart-message'>
-                        <p>Bạn phải đăng nhập .</p>
-                        <a href='../Authen/login.php' class='cart-message-btn'>Đăng nhập ngay</a>
-                    </div>";
-                echo $display_message;
-            } else {
-            ?>
-                <div style="text-align:center; font-size:100px;">Sản Phẩm: <?php echo $product_name ?></div>
+        <div class="product-container">
+            <?php if (!$is_logged_in): ?>
+                <div class='cart-message'>
+                    <p>Bạn phải đăng nhập để xem chi tiết và mua hàng.</p>
+                    <a href='../Authen/login.php' class='cart-message-btn'>Đăng nhập ngay</a>
+                </div>
+            <?php else: ?>
+                <div style="text-align:center; font-size:100px;">Sản Phẩm: <?php echo htmlspecialchars($product_name); ?></div>
                 <section>
                     <div class="product-image">
-                        <img src="<?php echo $image ?>" alt="">
+
+                        <img src="https://wrong-domain.com/<?php echo htmlspecialchars($image); ?>"
+                            alt="">
+
+
                     </div>
 
                     <div class="product-info">
-                        <div class="product_name"><?php echo $product_name ?></div>
-                        <div class="product_price"><?php echo $item_price ?>VND</div>
+                        <div class="product_name"><?php echo htmlspecialchars($product_name); ?></div>
+                        <div class="product_price"><?php echo number_format($item_price); ?> VND</div>
 
                         <div class="product_quantity">
                             <label for="quantity-input">Số lượng:</label>
@@ -156,24 +145,20 @@ if ($cus_name != "") {
                         </div>
 
                         <div class="product_descrip">
-                            Mô tả: <?php echo $row["decription"] ?>
+                            Mô tả: <?php echo nl2br(htmlspecialchars($description)); ?>
                         </div>
 
                         <div class="product-detail">
-                            <p>Tag: <?php echo $product_tag ?></p>
+                            <p>Tag: <?php echo htmlspecialchars($product_tag); ?></p>
                         </div>
 
                         <?php
-                        // Xử lý thêm vào giỏ hàng
                         if (isset($_POST["add_to_cart"])) {
                             $selected_quantity = (int)$_POST["quantity"];
-
                             if ($selected_quantity < 1) $selected_quantity = 1;
                             if ($selected_quantity > $quantity) {
                                 echo "<p style='color:red;'>Số lượng vượt quá kho.</p>";
                             } else {
-
-                                // Kiểm tra sản phẩm đã tồn tại trong giỏ chưa
                                 $check = $conn->prepare("SELECT * FROM cart WHERE user_id = :uid AND product_id = :pid");
                                 $check->execute(['uid' => $user_id, 'pid' => $product_id]);
 
@@ -184,7 +169,6 @@ if ($cus_name != "") {
                                        VALUES (:user_id, :product_id, :product_name, :quantity, :image, :item_price, :product_tag)";
 
                                     $stmt_insert = $conn->prepare($sql_insert);
-
                                     $stmt_insert->execute([
                                         ':user_id' => $user_id,
                                         ':product_id' => $product_id,
@@ -200,6 +184,7 @@ if ($cus_name != "") {
                             }
                         }
                         ?>
+
                         <form action="" method="post">
                             <input type="hidden" name="quantity" id="hidden-quantity" value="1">
                             <button type="submit" class="add" name="add_to_cart">ADD TO CART</button>
@@ -207,12 +192,12 @@ if ($cus_name != "") {
                         <a href="../Filter/Hoadon.php">
                             <button class="buy">BUY NOW</button>
                         </a>
-                    <?php
-                }
-                    ?>
+                    </div>
                 </section>
+            <?php endif; ?>
         </div>
     </section>
+
     <section class="section-5" style="color: white;">
         <div>
             <h3>De'Shop</h3>
@@ -242,8 +227,6 @@ if ($cus_name != "") {
     </section>
 </body>
 
-</html>
-
 <script>
     const sideBar = document.getElementsByClassName("side-bar")[0];
     const overlay = document.getElementsByClassName("overlay")[0];
@@ -263,10 +246,10 @@ if ($cus_name != "") {
         navSide.style.display = "none";
     };
 </script>
+
 <script>
     const quantityInput = document.getElementById('quantity-input');
     const hiddenQuantity = document.getElementById('hidden-quantity');
-
     const minusBtn = document.getElementById('minus-btn');
     const plusBtn = document.getElementById('plus-btn');
     const maxQuantity = parseInt(quantityInput.getAttribute('max'));
@@ -289,5 +272,7 @@ if ($cus_name != "") {
         }
     });
 </script>
+
+</html>
 
 <?php $conn = null; ?>
