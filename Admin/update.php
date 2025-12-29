@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/add.css?v=9"> <!-- Tăng version để clear cache -->
-    <title>Cập nhật sản phẩm</title>
-</head>
-
-<body>
-
-    <?php
+ <?php
     include("../Database/database.php");
-
+    /** @var PDO $conn */
     $error_message = "";
     $product = null;
 
@@ -36,6 +24,7 @@
             $error_message = "Lỗi kết nối dữ liệu: " . $e->getMessage();
         }
     }
+
 
     // Xử lý cập nhật khi submit form
     if ($_SERVER["REQUEST_METHOD"] === "POST" && $product) {
@@ -79,71 +68,84 @@
         }
     }
     ?>
-    <a href="../Admin/adminPage.php" class="add">Quay về</a>
-    <form action="" method="post" class="form">
-        <h2>Cập nhật sản phẩm</h2>
+ <!DOCTYPE html>
+ <html lang="en">
 
-        <?php if (!empty($error_message)): ?>
-            <p class="error"><?= htmlspecialchars($error_message) ?></p>
-        <?php endif; ?>
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../css/add.css?v=9">
+     <title>Cập nhật sản phẩm</title>
+ </head>
 
-        <?php if ($product): ?>
-            <div>
-                <label for="product_id">ID sản phẩm</label>
-                <input type="text" name="product_id" required readonly
-                    value="<?= htmlspecialchars($product['product_id']) ?>"
-                    placeholder="ID không thể thay đổi">
-            </div>
+ <body>
 
-            <div>
-                <label for="product_name">Tên sản phẩm *</label>
-                <input type="text" name="product_name" required
-                    value="<?= htmlspecialchars($product['product_name']) ?>">
-            </div>
 
-            <div>
-                <label for="quantity">Số lượng *</label>
-                <input type="text" name="quantity" required
-                    value="<?= htmlspecialchars($product['quantity']) ?>">
-            </div>
 
-            <div>
-                <label for="decription">Mô tả</label>
-                <input type="text" name="decription"
-                    value="<?= htmlspecialchars($product['decription']) ?>">
-            </div>
+     <a href="../Admin/adminPage.php" class="add">Quay về</a>
+     <form action="" method="post" class="form">
+         <h2>Cập nhật sản phẩm</h2>
 
-            <div>
-                <label for="item_price">Giá (VNĐ) *</label>
-                <input type="text" name="item_price" required
-                    value="<?= htmlspecialchars($product['item_price']) ?>">
-            </div>
+         <?php if (!empty($error_message)): ?>
+             <p class="error"><?= htmlspecialchars($error_message) ?></p>
+         <?php endif; ?>
 
-            <div>
-                <label for="image">Link hình ảnh *</label>
-                <input type="text" name="image" required
-                    value="<?= htmlspecialchars($product['image']) ?>">
-            </div>
+         <?php if ($product): ?>
+             <div>
+                 <label for="product_id">ID sản phẩm</label>
+                 <input type="text" name="product_id" required readonly
+                     value="<?= htmlspecialchars($product['product_id']) ?>"
+                     placeholder="ID không thể thay đổi">
+             </div>
 
-            <div>
-                <label for="category_id">Mã danh mục *</label>
-                <input type="text" name="category_id" required
-                    value="<?= htmlspecialchars($product['category_id']) ?>">
-            </div>
+             <div>
+                 <label for="product_name">Tên sản phẩm *</label>
+                 <input type="text" name="product_name" required
+                     value="<?= htmlspecialchars($product['product_name']) ?>">
+             </div>
 
-            <div>
-                <label for="product_tag">Tag</label>
-                <input type="text" name="product_tag"
-                    value="<?= htmlspecialchars($product['product_tag']) ?>"
-                    placeholder="new, sale, hot">
-            </div>
+             <div>
+                 <label for="quantity">Số lượng *</label>
+                 <input type="text" name="quantity" required
+                     value="<?= htmlspecialchars($product['quantity']) ?>">
+             </div>
 
-            <button type="submit">Lưu thay đổi</button>
-        <?php endif; ?>
+             <div>
+                 <label for="decription">Mô tả</label>
+                 <input type="text" name="decription"
+                     value="<?= htmlspecialchars($product['decription']) ?>">
+             </div>
 
-        <!-- Nút quay về -->
-    </form>
+             <div>
+                 <label for="item_price">Giá (VNĐ) *</label>
+                 <input type="text" name="item_price" required
+                     value="<?= htmlspecialchars($product['item_price']) ?>">
+             </div>
 
-</body>
+             <div>
+                 <label for="image">Link hình ảnh *</label>
+                 <input type="text" name="image" required
+                     value="<?= htmlspecialchars($product['image']) ?>">
+             </div>
 
-</html>
+             <div>
+                 <label for="category_id">Mã danh mục *</label>
+                 <input type="text" name="category_id" required
+                     value="<?= htmlspecialchars($product['category_id']) ?>">
+             </div>
+
+             <div>
+                 <label for="product_tag">Tag</label>
+                 <input type="text" name="product_tag"
+                     value="<?= htmlspecialchars($product['product_tag']) ?>"
+                     placeholder="new, sale, hot">
+             </div>
+
+             <button type="submit">Lưu thay đổi</button>
+         <?php endif; ?>
+
+     </form>
+
+ </body>
+
+ </html>

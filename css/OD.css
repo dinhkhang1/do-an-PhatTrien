@@ -1,0 +1,21 @@
+ .container {
+            width: 92%;
+            max-width: 900px;
+            margin: 35px auto;
+            background: #fff;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, .1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px
+        }

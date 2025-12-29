@@ -1,12 +1,24 @@
 <?php
 include("../Database/database.php");
-
+/** @var PDO $conn */
 session_start();
 if (isset($_SESSION['username']) && $_SESSION['username'] != "") {
     $username = $_SESSION["username"];
 }
 if (isset($_SESSION['password']) && $_SESSION['password'] != "") {
     $password = $_SESSION["password"];
+}
+// === BẮT ĐẦU XỬ LÝ XÓA SẢN PHẨM ===
+if (isset($_POST['delete'])) {
+    // Lấy ID sản phẩm cần xóa
+    $delete_id = isset($_POST['delete_id']) ? $_POST['delete_id'] : '';
+
+    // Xóa sản phẩm khỏi cơ sở dữ liệu
+    if (!empty($delete_id)) {
+        $sql_delete = $conn->prepare("DELETE FROM product WHERE product_id = :product_id");
+        $sql_delete->bindParam(':product_id', $delete_id);
+        $sql_delete->execute();
+    }
 }
 ?>
 <html lang="en">
@@ -20,8 +32,8 @@ if (isset($_SESSION['password']) && $_SESSION['password'] != "") {
 </head>
 
 <body>
-    <a href="../Admin/adminPageUser.php"><button>Manage Users</button></a>
-    <button class="add"><a href="../Admin/add.php">Add new items</a></button>
+    <a href="../Admin/adminPageUser.php"><button>Quản lý người dùng</button></a>
+    <button class="add"><a href="../Admin/add.php">Thêm sản phẩm mới</a></button>
     <a href="../Authen/logout.php"><button>Thoát</button></a>
 
     <table>

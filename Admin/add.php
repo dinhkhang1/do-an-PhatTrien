@@ -16,7 +16,6 @@
         <h2>Thêm sản phẩm mới</h2>
 
         <?php
-        // Hiển thị lỗi duplicate ID đẹp hơn
         if (isset($e) && $e->errorInfo[1] == 1062) {
             echo '<p class="error">Lỗi: ID sản phẩm đã tồn tại! Vui lòng chọn ID khác.</p>';
         }
@@ -48,17 +47,23 @@
         </div>
         <div>
             <label for="category_id">Mã danh mục *</label>
-            <input type="text" name="category_id" required placeholder="1 (Áo), 2 (Quần), ...">
+            <input type="radio" name="category_id" required value="1">ao nam
+            <input type="radio" name="category_id" required value="2">ao nu</br>
+            <input type="radio" name="category_id" required value="3">quan nam
+            <input type="radio" name="category_id" required value="4">quan nu</br>
+            <input type="radio" name="category_id" required value="5">ao uniseex
+            <input type="radio" name="category_id" required value="6">quan uniseex</br>
         </div>
         <div>
             <label for="product_tag">Tag</label>
-            <input type="text" name="product_tag" placeholder="new, sale, hot">
+            <input type="text" name="product_tag" placeholder="ao, quan, aounisex, quanunisex">
         </div>
 
         <button type="submit">Lưu sản phẩm</button>
     </form>
     <?php
     include("../Database/database.php");
+    /** @var PDO $conn */
     try {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $product_id = $_POST["product_id"];
@@ -69,8 +74,11 @@
             $image = $_POST["image"];
             $category_id = $_POST["category_id"];
             $product_tag = $_POST["product_tag"];
-            // $pdo = new PDO("mysql:host=localhost;dbname:dbqa","root","");
-            // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            if ($quantity < 0) {
+                echo "khong the nhap so am";
+                exit();
+            }
 
             $sql_insert = $conn->prepare("INSERT INTO product (product_id,product_name,quantity,decription,item_price,image,category_id,product_tag)
             values (:product_id,:product_name,:quantity,:decription,:item_price,:image,:category_id,:product_tag)");

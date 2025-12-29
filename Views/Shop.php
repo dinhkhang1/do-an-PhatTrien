@@ -1,5 +1,6 @@
 <?php
 include("../Database/database.php");
+/** @var PDO $conn */
 session_start();
 $cus_name = $password = '';
 
@@ -58,23 +59,65 @@ if ($cus_name != "") {
                 <?php
                 include("../Database/database.php");
 
-                if (isset($_POST["search_item"]) && !empty($_POST['search'])) {
-                    $search =  $_POST['search'];
-                    $sql_search = "SELECT * from product where product_tag like :search";
-                    $stmt = $conn->prepare($sql_search);
-                    $stmt->execute(['search' => "%$search%"]);
-                    $result_search = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                    if ($result_search && count($result_search) > 0) {
-                        if ($search == 'Ao') header("Location: ./Filter/Ao.php");
-                        else if ($search == 'Quan') header("Location: ./Filter/Quan.php");
-                        else if ($search == 'Aounisex') header("Location: ./Filter/AoUnisex.php");
-                        else if ($search == 'Quanunisex') header("Location: ./Filter/QuanUnisex.php");
-                    } else {
-                        header("Location: ./Filter/NotFound.php");
+                function vn_normalize($str)
+                {
+                    $str = mb_strtolower($str, "UTF-8");
+                    $map = [
+                        'a' => 'á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ',
+                        'd' => 'đ',
+                        'e' => 'é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ',
+                        'i' => 'í|ì|ỉ|ĩ|ị',
+                        'o' => 'ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ',
+                        'u' => 'ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự',
+                        'y' => 'ý|ỳ|ỷ|ỹ|ỵ'
+                    ];
+                    foreach ($map as $non => $regex) {
+                        $str = preg_replace("/($regex)/i", $non, $str);
                     }
+                    return $str;
                 }
 
+                if (isset($_POST["search_item"]) && !empty($_POST['search'])) {
+
+                    $search_raw = trim($_POST['search']);
+
+                    // Chuẩn hóa tìm kiếm: bỏ dấu + lower
+                    $search = vn_normalize($search_raw);
+
+                    // Lấy toàn bộ product_tag để so khớp không dấu
+                    $sql = "SELECT product_tag FROM product";
+                    $stmt = $conn->query($sql);
+                    $tags = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+                    $matched = false;
+
+                    foreach ($tags as $tag) {
+
+                        $tag_norm = vn_normalize($tag);
+
+                        if (strpos($tag_norm, $search) !== false) {
+                            $matched = $tag;
+                            break;
+                        }
+                    }
+
+                    // Mapping đúng theo logic cũ của bạn
+                    if ($matched !== false) {
+
+                        $norm = vn_normalize($matched);
+
+                        if ($norm === 'ao') header("Location: ../Filter/Ao.php");
+                        else if ($norm === 'quan') header("Location: ../Filter/Quan.php");
+                        else if ($norm === 'aounisex') header("Location: ../Filter/AoUnisex.php");
+                        else if ($norm === 'quanunisex') header("Location: ../Filter/QuanUnisex.php");
+                        else header("Location: ../Filter/NotFound.php");
+                        exit();
+                    }
+
+                    // Không có kết quả
+                    header("Location: ../Filter/NotFound.php");
+                    exit();
+                }
                 echo "
                     <form action='' method='post' class='seacrh-form'>
                         <input type='text' name='search' id=''>
@@ -93,6 +136,7 @@ if ($cus_name != "") {
                 }
                 ?>
                 <a href="../Views/Cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
+                <a href="../Views/DH.php"><i class="fa-solid fa-calendar-check"></i></a>
             </div>
         </div>
     </div>

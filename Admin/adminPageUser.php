@@ -1,6 +1,6 @@
 <?php
 include("../Database/database.php");
-
+/** @var PDO $conn */
 session_start();
 if (isset($_SESSION['username']) && $_SESSION['username'] != "") {
     $username = $_SESSION["username"];
@@ -66,7 +66,7 @@ if (isset($_SESSION['password']) && $_SESSION['password'] != "") {
                         }
                         echo "<form action='' method='post'>
                         <input type='hidden' name='delete_id' value='$id'>
-                        <button class='delete' type='submit' name= 'delete' >Delete</button>
+                        <button class='delete' type='submit' name= 'delete' onclick=\"return confirm('Xóa sản phẩm này?')\">Delete</button>
                         </form>";
                         ?>
                     </td>

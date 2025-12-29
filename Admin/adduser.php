@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/add.css?v=6"> <!-- Tăng version để clear cache -->
+    <link rel="stylesheet" href="../css/add.css?v=6">
     <title>Thêm người dùng mới</title>
 </head>
 
@@ -17,13 +17,13 @@
         <?php
         // Hiển thị thông báo lỗi nếu có
         include("../Database/database.php");
-
+        /** @var PDO $conn */
         $error_message = "";
         try {
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $user_id   = trim($_POST["user_id"]);
                 $cus_name  = trim($_POST["cus_name"]);
-                $password  = $_POST["password"];         // Nên hash sau này: password_hash($password, PASSWORD_DEFAULT)
+                $password  = $_POST["password"];
                 $email     = trim($_POST["email"]);
                 $phone     = trim($_POST["phone"]);
                 $diachi    = trim($_POST["diachi"]);
@@ -36,8 +36,7 @@
                                               VALUES (:user_id, :cus_name, :password, :email, :phone, :diachi)");
                     $sql_insert->bindParam(':user_id', $user_id);
                     $sql_insert->bindParam(':cus_name', $cus_name);
-                    $sql_insert->bindParam(':password', $password); // Sau này nên hash
-                    $sql_insert->bindParam(':email', $email);
+                    $sql_insert->bindParam(':password', $password);
                     $sql_insert->bindParam(':phone', $phone);
                     $sql_insert->bindParam(':diachi', $diachi);
 

@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/add.css?v=10"> <!-- Tăng version để clear cache -->
-    <title>Cập nhật người dùng</title>
-</head>
-
-<body>
-
-    <?php
+ <?php
     include("../Database/database.php");
-
+    /** @var PDO $conn */
     $error_message = "";
     $user = null;
 
@@ -41,7 +29,7 @@
     if ($_SERVER["REQUEST_METHOD"] === "POST" && $user) {
         $user_id   = trim($_POST["user_id"]);
         $cus_name  = trim($_POST["cus_name"]);
-        $password  = trim($_POST["password"]); // Gợi ý: sau này dùng password_hash()
+        $password  = trim($_POST["password"]);
         $email     = trim($_POST["email"]);
         $phone     = trim($_POST["phone"]);
         $diachi    = trim($_POST["diachi"]);
@@ -65,7 +53,7 @@
 
             $stmt->execute();
 
-            // Thành công → quay về trang quản lý user
+
             header("Location: ../Admin/adminPageUser.php");
             exit();
         } catch (PDOException $e) {
@@ -73,65 +61,77 @@
         }
     }
     ?>
-    <a href="../Admin/adminPageUser.php" class="add">Quay về</a>
-    <form action="" method="post" class="form">
-        <h2>Cập nhật người dùng</h2>
+ <!DOCTYPE html>
+ <html lang="en">
 
-        <?php if (!empty($error_message)): ?>
-            <p class="error"><?= htmlspecialchars($error_message) ?></p>
-        <?php endif; ?>
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../css/add.css?v=10">
+     <title>Cập nhật người dùng</title>
+ </head>
 
-        <?php if ($user): ?>
-            <div>
-                <label for="user_id">ID người dùng</label>
-                <input type="text" name="user_id" required readonly
-                    value="<?= htmlspecialchars($user['user_id']) ?>"
-                    placeholder="ID không thể thay đổi">
-            </div>
+ <body>
 
-            <div>
-                <label for="cus_name">Họ và tên *</label>
-                <input type="text" name="cus_name" required
-                    value="<?= htmlspecialchars($user['cus_name']) ?>">
-            </div>
 
-            <div>
-                <label for="password">Mật khẩu mới</label>
-                <input type="password" name="password"
-                    placeholder="Để trống nếu không muốn đổi mật khẩu"
-                    autocomplete="new-password">
-                <small style="color:#7f8c8d; font-size:13px; display:block; margin-top:5px;">
-                    Mật khẩu hiện tại: <?= htmlspecialchars($user['password']) ?> (hiện dạng text để xem)
-                </small>
-            </div>
+     <a href="../Admin/adminPageUser.php" class="add">Quay về</a>
+     <form action="" method="post" class="form">
+         <h2>Cập nhật người dùng</h2>
 
-            <div>
-                <label for="email">Email *</label>
-                <input type="email" name="email" required
-                    value="<?= htmlspecialchars($user['email']) ?>">
-            </div>
+         <?php if (!empty($error_message)): ?>
+             <p class="error"><?= htmlspecialchars($error_message) ?></p>
+         <?php endif; ?>
 
-            <div>
-                <label for="phone">Số điện thoại</label>
-                <input type="text" name="phone"
-                    value="<?= htmlspecialchars($user['phone']) ?>"
-                    placeholder="0901234567">
-            </div>
+         <?php if ($user): ?>
+             <div>
+                 <label for="user_id">ID người dùng</label>
+                 <input type="text" name="user_id" required readonly
+                     value="<?= htmlspecialchars($user['user_id']) ?>"
+                     placeholder="ID không thể thay đổi">
+             </div>
 
-            <div>
-                <label for="diachi">Địa chỉ</label>
-                <input type="text" name="diachi"
-                    value="<?= htmlspecialchars($user['diachi']) ?>"
-                    placeholder="Số nhà, đường, quận/huyện...">
-            </div>
+             <div>
+                 <label for="cus_name">Họ và tên *</label>
+                 <input type="text" name="cus_name" required
+                     value="<?= htmlspecialchars($user['cus_name']) ?>">
+             </div>
 
-            <button type="submit">Lưu thay đổi</button>
-        <?php endif; ?>
+             <div>
+                 <label for="password">Mật khẩu mới</label>
+                 <input type="password" name="password"
+                     placeholder="Để trống nếu không muốn đổi mật khẩu"
+                     autocomplete="new-password">
+                 <small style="color:#7f8c8d; font-size:13px; display:block; margin-top:5px;">
+                     Mật khẩu hiện tại: <?= htmlspecialchars($user['password']) ?> (hiện dạng text để xem)
+                 </small>
+             </div>
 
-        <!-- Nút quay về -->
+             <div>
+                 <label for="email">Email *</label>
+                 <input type="email" name="email" required
+                     value="<?= htmlspecialchars($user['email']) ?>">
+             </div>
 
-    </form>
+             <div>
+                 <label for="phone">Số điện thoại</label>
+                 <input type="text" name="phone"
+                     value="<?= htmlspecialchars($user['phone']) ?>"
+                     placeholder="0901234567">
+             </div>
 
-</body>
+             <div>
+                 <label for="diachi">Địa chỉ</label>
+                 <input type="text" name="diachi"
+                     value="<?= htmlspecialchars($user['diachi']) ?>"
+                     placeholder="Số nhà, đường, quận/huyện...">
+             </div>
 
-</html>
+             <button type="submit">Lưu thay đổi</button>
+         <?php endif; ?>
+
+
+     </form>
+
+ </body>
+
+ </html>

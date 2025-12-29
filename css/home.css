@@ -118,12 +118,13 @@ li a {
   display: flex;
 }
 .nav-bar {
-  width: 92%;
+  width: 90%;
   height: 90%;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 .nav-menu {
   width: 25%;
@@ -139,7 +140,7 @@ i {
 }
 .fa-cart-shopping {
   position: relative;
-  left: -20px;
+  left: 0px;
   color: black;
 }
 
@@ -157,12 +158,10 @@ input {
   left: -80px;
 }
 .nav-user {
-  width: 7%;
-  height: 100%;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Khoảng cách đều giữa các icon */
 }
 /* make sure nav icons are black */
 .nav-user i {
@@ -505,4 +504,37 @@ width: 50%;
 
 .contact-us a:hover {
     text-decoration: underline;
+}
+.cart-message {
+    width: 100%;
+    text-align: center;
+    padding: 260px 50px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+
+    color: #333;
+    font-size: 20px;
+    font-weight: 500;
+
+    animation: fadeIn 0.3s ease;
+}
+
+.cart-message p {
+    margin: 0;
+}
+
+.cart-message-btn {
+    padding: 15px 26px;
+    background:black;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 17px;
+    transition: 0.25s ease;
+}
+
+.cart-message-btn:hover {
+    background: gray;
 }

@@ -1,0 +1,329 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Calibri, "Trebuchet MS", sans-serif;
+}
+.overlay {
+  width: 100%;
+  height: 110vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: -2;
+}
+
+.item a {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.item_name {
+  left: 100px;
+}
+.item_price {
+  left: 190px;
+}
+ul {
+  width: 85%;
+  height: 50%;
+
+  position: absolute;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+li {
+  width: 100%;
+  height: 18%;
+  list-style: none;
+
+  position: relative;
+  left: -20px;
+  font-size: 30px;
+}
+li a {
+  color: black;
+}
+.search {
+  background-color: black;
+  color: white;
+  width: 100px;
+  height: 40px;
+  border: none;
+  position: relative;
+  left: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  top: 10px;
+  font-weight: bold;
+}
+.seacrh-form {
+  display: flex;
+}
+.nav-side {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+
+  z-index: 2;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  top: 40px;
+}
+.fa-cart-shopping {
+  position: relative;
+
+  color: black;
+}
+.nav-bar {
+  width: 92%;
+  height: 90%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-menu {
+  width: 25%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+i {
+  font-size: 20px;
+  cursor: pointer;
+}
+input {
+  width: 68%;
+  height: 50px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid rgb(95, 93, 93);
+  background-color: transparent;
+}
+.logo {
+  position: relative;
+  left: -130px;
+}
+.nav-user {
+  width: 7%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item_cart {
+  position: relative;
+  top: 200px;
+  width: 90%;
+  height: 300px;
+  margin: 0 auto;
+  cursor: pointer;
+  border: 1px solid;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 60%;
+  height: 300px;
+}
+.delete {
+  background-color: black;
+  color: white;
+  width: 80px;
+  height: 30px;
+
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  position: relative;
+  top: 0px;
+  left: 1200px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+.side-bar {
+
+  width: 300px;
+  height: 110vh;
+  position: fixed;
+  top: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  z-index: 3;
+  transition: all 0.5s ease-in-out;
+  left: -300px;
+}
+.side-bar i {
+  position: relative;
+  top: -320px;
+  z-index: 2;
+  left: 100px;
+}
+.user-bar {
+  width: 96.5%;
+  height: 40px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 50px;
+  font-weight: bold;
+  position: fixed;
+  top: 0px;
+  z-index: 3;
+}
+.section-1 {
+  width: 100%;
+  height: 130vh;
+  background: rgb(242, 242, 242);
+  background: linear-gradient(
+    0deg,
+    rgba(242, 242, 242, 1) 0%,
+    rgba(242, 242, 242, 1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.section-5 {
+  background-color: black;
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.section-5 div h3 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.section-5 div p {
+  font-size: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+}
+.remove-btn {
+    padding: 8px 14px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.remove-btn:hover {
+    background-color: #e74c3c;
+}
+.quantity-form {
+   width: fit-content;        /* Chỉ chiếm đúng kích thước nội dung (input + button) */
+    max-width: 200px;          /* Giới hạn tối đa để không quá rộng trên mobile */
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* Căn giữa các phần tử bên trong (input và button) */
+    gap: 10px;
+    margin: 15px auto 0 auto;  /* Căn giữa form so với phần cha, thêm khoảng cách trên */
+    padding: 8px 12px;         /* Thêm padding nhẹ cho đẹp */
+    background-color: #f0f8ff; /* Màu nền xanh nhạt như trong ảnh của bạn */
+    border-radius: 8px;        /* Bo góc */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Bóng nhẹ cho nổi bật */
+}
+/* ===== THÔNG BÁO GIỎ HÀNG ===== */
+.cart-message {
+    width: 100%;
+    text-align: center;
+    padding: 250px 0px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+
+    color: #333;
+    font-size: 20px;
+    font-weight: 500;
+
+    animation: fadeIn 0.3s ease;
+}
+
+.cart-message p {
+    margin: 0;
+}
+
+.cart-message-btn {
+    padding: 10px 26px;
+    background:black;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 17px;
+    transition: 0.25s ease;
+}
+
+.cart-message-btn:hover {
+    background: gray;
+}
+.cart-item {
+    width: 90%;
+    height: 150px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+.delete-form {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Căn giữa nút xóa */
+}
+/* Animation nhẹ */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(8px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+.checkout-button{
+  padding: 10px 26px;
+    background:black;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 17px;
+    transition: 0.25s ease;
+}
+.checkout-button:hover {
+    background: gray;
+}
