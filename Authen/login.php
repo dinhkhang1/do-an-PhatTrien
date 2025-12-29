@@ -13,6 +13,14 @@ include("../Database/database.php");
 </head>
 
 <body>
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <h3>Đăng nhập thất bại</h3>
+            <p id="errorMessage"></p>
+            <button onclick="closeModal()">Đóng</button>
+        </div>
+    </div>
+
     <section class="container">
         <div class="login-container">
             <div class="login-background">
@@ -20,23 +28,30 @@ include("../Database/database.php");
                     <source type="video/mp4" src="../assets/video_background.mp4">
                 </video>
             </div>
+
             <div class="login-form">
                 <div class="login-title"><a href="../Index.php">De'Shop</a></div>
+
                 <form action="" method="post">
                     <h4>Welcome to De'Shop</h4>
+
                     <div class="login-side">
                         <div class="login-input">
                             <span>Username</span>
                             <input type="text" name="username" required>
                         </div>
+
                         <div class="login-input">
                             <span>Password</span>
                             <input type="password" name="password" required>
                         </div>
                     </div>
+
                     <input type="submit" value="Sign in" class="submit">
+
                     <div class="register-side">
-                        <span>New De'Shop member?</span><a href="../Authen/register.php">Create Account</a>
+                        <span>New De'Shop member?</span>
+                        <a href="../Authen/register.php">Create Account</a>
                     </div>
                 </form>
             </div>
@@ -47,22 +62,26 @@ include("../Database/database.php");
 </html>
 
 <?php
+$loginError = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $username = trim($_POST["username"]);
     $password = trim($_POST["password"]);
 
     try {
-        // Validate connection
+
         if (!$conn) {
             throw new Exception("Database connection failed");
         }
+
+        // ===== LOGIN ADMIN (CASE-SENSITIVE) =====
         $sqlAdmin = "SELECT username, password 
-                 FROM admin 
-                 WHERE username = :username";
+                     FROM admin 
+                     WHERE BINARY username = :username";
 
         $stmtAdmin = $conn->prepare($sqlAdmin);
-        $stmtAdmin->execute(['username' => $username]);
+        $stmtAdmin->execute([':username' => $username]);
         $admin = $stmtAdmin->fetch(PDO::FETCH_ASSOC);
 
         if ($admin && $admin['password'] === $password) {
@@ -73,19 +92,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../Admin/adminPage.php");
             exit();
         }
-        // Check user login
-        $sqlUser = "SELECT user_id, cus_name FROM users 
-                    WHERE cus_name = :cus_name AND password = :password";
+
+        // ===== LOGIN USER (CASE-SENSITIVE) =====
+        $sqlUser = "SELECT user_id, cus_name 
+                    FROM users 
+                    WHERE BINARY cus_name = :cus_name
+                      AND password = :password";
+
         $stmtUser = $conn->prepare($sqlUser);
         $stmtUser->execute([
             ':cus_name' => $username,
-            ':password' => $password,
+            ':password' => $password
         ]);
 
         $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            $_SESSION["user_id"] = $user["user_id"];     // LƯU user_id
+
+            $_SESSION["user_id"] = $user["user_id"];
             $_SESSION["cus_name"] = $user["cus_name"];
             $_SESSION["is_admin"] = false;
 
@@ -93,9 +117,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        echo "<span style='color:red; text-align:center; display:block;'>Wrong username or password!</span>";
+        // ===== LOGIN FAILED =====
+        $loginError = "Sai tài khoản hoặc mật khẩu!";
+
     } catch (PDOException $e) {
-        echo "<span class='error'>Error: " . htmlspecialchars($e->getMessage()) . "</span>";
+        $loginError = "Lỗi hệ thống, vui lòng thử lại.";
     }
 }
 ?>
+
+<script>
+    function closeModal() {
+        document.getElementById('errorModal').style.display = 'none';
+    }
+</script>
+
+<?php if (!empty($loginError)) : ?>
+<script>
+    document.getElementById('errorMessage').innerText = "<?= $loginError ?>";
+    document.getElementById('errorModal').style.display = 'flex';
+</script>
+<?php endif; ?>

@@ -1,0 +1,395 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Calibri, "Trebuchet MS", sans-serif;
+}
+.overlay {
+  width: 100%;
+  height: 110vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: -2;
+}
+.side-bar {
+  width: 300px;
+  height: 110vh;
+  position: fixed;
+  top: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 3;
+  transition: all 0.5s ease-in-out;
+  left: -300px;
+}
+.side-bar i {
+  position: relative;
+  top: -320px;
+  z-index: 2;
+  left: 100px;
+}
+ul {
+  width: 85%;
+  height: 50%;
+
+  position: absolute;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+li {
+  width: 100%;
+  height: 18%;
+  list-style: none;
+
+  position: relative;
+  left: -20px;
+  font-size: 30px;
+}
+li a {
+  color: black;
+}
+.nav-side {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+
+  z-index: 2;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  top: 40px;
+}
+
+.fa-cart-shopping {
+  position: relative;
+
+  color: black;
+}
+.nav-bar {
+  width: 92%;
+  height: 90%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-menu {
+  width: 25%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+i {
+  font-size: 20px;
+  cursor: pointer;
+}
+input {
+  width: 68%;
+  height: 50px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid rgb(95, 93, 93);
+  background-color: transparent;
+}
+.logo {
+  position: relative;
+  left: -80px;
+}
+.nav-user {
+  width: 7%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.seacrh-form {
+  display: flex;
+}
+/* shop */
+section {
+  width: 90%;
+  height: 150vh;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  top: 200px;
+}
+.filter-side {
+  width: 20%;
+  height: 15%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+a {
+  text-decoration: none;
+}
+a i {
+  margin-right: 20px;
+}
+.filter-side p {
+  position: relative;
+  top: 30px;
+  font-weight: bold;
+  font-size: 30px;
+}
+.filter-page {
+  width: 100%;
+  height: 50px;
+  font-weight: bold;
+  font-size: 30px;
+  color: black;
+  position: relative;
+  top: 30px;
+  margin-bottom: 50px;
+}
+.products-side {
+  width: 74.2%;
+  height: 90%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 20px;
+  grid-gap: 1rem;
+}
+.product {
+  cursor: pointer;
+}
+.search {
+  background-color: black;
+  color: white;
+  width: 100px;
+  height: 40px;
+  border: none;
+  position: relative;
+  left: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  top: 10px;
+  font-weight: bold;
+}
+.section-5 {
+  background-color: black;
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.section-5 div h3 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.section-5 div p {
+  font-size: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+}
+.nav-user {
+  width: 7%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* make sure nav icons are black */
+.nav-user i {
+  color: black;
+}
+.side-bar {
+
+  width: 300px;
+  height: 110vh;
+  position: fixed;
+  top: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  z-index: 3;
+  transition: all 0.5s ease-in-out;
+  left: -300px;
+}
+.side-bar i {
+  position: relative;
+  top: -320px;
+  z-index: 2;
+  left: 100px;
+}
+.user-bar {
+  width: 96.5%;
+  height: 40px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 50px;
+  font-weight: bold;
+  position: fixed;
+  top: 0px;
+  z-index: 3;
+}
+/* Container chính của trang checkout - chia 2 cột trên màn hình lớn */
+.checkout-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 150px 20px 50px; /* padding-top lớn để tránh bị menu che */
+    font-family: Arial, sans-serif;
+}
+
+/* Phần thông tin khách hàng */
+.checkout-info {
+    flex: 1;
+    min-width: 300px;
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.checkout-info h2 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.checkout-info h3 {
+    font-size: 22px;
+    margin: 30px 0 20px;
+    color: #444;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+}
+
+/* Label và input */
+.checkout-info label {
+    display: block;
+    margin: 15px 0 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.checkout-info input[type="text"],
+.checkout-info textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border 0.3s;
+}
+
+.checkout-info input:focus,
+.checkout-info textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.checkout-info textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Phần đơn hàng */
+.checkout-cart {
+    flex: 1;
+    min-width: 300px;
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.checkout-cart h3 {
+    font-size: 22px;
+    margin: 0 0 20px;
+    color: #444;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+}
+
+/* Bảng đơn hàng */
+.checkout-cart table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+}
+
+.checkout-cart th {
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.checkout-cart td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.checkout-cart tr:last-child td {
+    border-bottom: none;
+}
+
+/* Tổng tiền */
+.checkout-cart h3 span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Nút thanh toán */
+.btn-checkout {
+    width: 100%;
+    padding: 15px;
+    margin-top: 30px;
+    background: #28a745;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-checkout:hover {
+    background: #218838;
+}

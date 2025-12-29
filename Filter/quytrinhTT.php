@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../Database/database.php");
-
+/** @var PDO $conn */
 // use PHPMailer\PHPMailer\PHPMailer;
 // use PHPMailer\PHPMailer\Exception;
 
@@ -233,6 +233,12 @@ $conn = null;
 
         <a href="../Index.php" class="btn-home">Quay lại trang chủ</a>
     </div>
+    <!-- Tự động chuyển hướng sau 10 giây nếu khách không click -->
+    <script>
+        setTimeout(function() {
+            window.location.href = "../Views/DH.php?order_id=<?= $order_id ?>";
+        }, 10000);
+    </script>
 </body>
 
 </html>

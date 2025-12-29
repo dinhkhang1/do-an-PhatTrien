@@ -23,7 +23,9 @@ include("../Database/database.php");
                 </video>
             </div>
             <div class="login-form">
-                <div class="login-title">De'Shop</div>
+                <a href="../Index.php" style="text-decoration: none;">
+                    <div class="login-title">De'Shop</div>
+                </a>
                 <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <h4>Welcome to De'Shop</h4>
                     <div class="login-side">
@@ -77,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Please enter your email";
     } else if (empty($phone)) {
         echo "Please enter your phone number";
-    } else if (empty($address)) {
+    } else if (empty($address)) { 
         echo "Please enter your address";
     } else {
         try {

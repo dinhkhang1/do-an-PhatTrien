@@ -1,0 +1,41 @@
+.container {
+            width: 92%;
+            max-width: 950px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, .1);
+        }
+
+        .order-card {
+            border: 1px solid #ddd;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+        }
+
+        .order-meta {
+            margin-top: 6px;
+            font-size: 14px
+        }
+
+        .btn-detail {
+            background-color:black;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid;
+            text-decoration: none;
+            color:white;
+        }
+
+        .btn-detail:hover {
+            background: grey;
+            color: #fff
+        }

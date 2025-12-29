@@ -1,11 +1,8 @@
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Calibri, "Trebuchet MS", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Calibri, "Trebuchet MS", sans-serif;
 }
 .product-container {
     width: 90%;
@@ -70,12 +67,18 @@ li a {
 .nav-side {
   width: 100%;
   height: 80px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
   position: fixed;
-  top: 20px; /* Đẩy xuống dưới user bar */
-  background-color: #fff;
+
   z-index: 2;
-  box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+  background-color: #fff;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  top: 40px;
 }
+
 .fa-cart-shopping {
   position: relative;
 
@@ -136,6 +139,21 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  top: 200px;
+}
+.section-1 {
+  width: 100%;
+  height: 130vh;
+  background: rgb(242, 242, 242);
+  background: linear-gradient(
+    0deg,
+    rgba(242, 242, 242, 1) 0%,
+    rgba(242, 242, 242, 1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .product-image {
   width: 45%;
@@ -247,6 +265,9 @@ form .add {
   justify-content: space-between;
   align-items: center;
 }
+.nav-user i {
+  color: black;
+}
 .section-5 {
   background-color: black;
   width: 100%;
@@ -270,12 +291,10 @@ a {
   text-decoration: none;
 }
 /* make sure nav icons are black */
-.nav-user i {
-  color: black;
-}
-.user-bar{
+
+.user-bar {
   width: 96.5%;
-  height: 20px;
+  height: 40px;
   background-color: black;
   color: white;
   display: flex;
